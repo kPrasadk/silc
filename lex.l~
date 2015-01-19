@@ -1,0 +1,24 @@
+%{
+#include <stdio.h>
+#include "y.tab.h"
+%}
+%%
+	/*variables*/
+[a-z]		{
+				return VAR;
+			}	
+	/* integers */
+[0-9]+	{
+				yylval=atoi(yytext);
+				return NUM;
+			}
+
+	/* operators */
+[)(+*=\-/\n]	{
+				yylval=*yytext;
+				return *yytext;
+			}
+[\t]	;
+			
+.	yyerror("error");				
+%%
